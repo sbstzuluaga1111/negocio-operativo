@@ -1,5 +1,5 @@
-
-
+# DB esquema:
+![Diagrama UML-2](https://github.com/sbstzuluaga1111/negocio-operativo/assets/133683120/850f3dc2-8a52-400e-b5b0-8929cbe50290)
 
 # Getting Started with Create React App
 
