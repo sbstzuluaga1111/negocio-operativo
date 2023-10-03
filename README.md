@@ -1,5 +1,4 @@
 
-![Diagrama UML-2](https://github.com/sbstzuluaga1111/negocio-operativo/assets/133683120/7f80d271-c8e5-48d1-b946-3731b3713839)
 
 
 # Getting Started with Create React App
