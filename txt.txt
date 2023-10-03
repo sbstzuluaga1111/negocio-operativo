@@ -1,0 +1,84 @@
+db.sedes.insertOne({
+  "nombre": "Sede Principal",
+  "direccion": "123 Calle Principal",
+  "ciudad": "Ciudad Principal",
+  "pais": "País Principal",
+  "telefono": "+1234567890",
+  "almacen": {
+    "nombre": "Almacén Principal",
+    "ubicacion": "Ubicación del Almacén Principal"
+  },
+  "proveedores": [
+    ObjectId("ID del Proveedor A"),
+    ObjectId("ID del Proveedor B")
+  ],
+  "empleados": [
+    ObjectId("ID del Empleado 1"),
+    ObjectId("ID del Empleado 2")
+  ]
+})
+
+db.empleados.insertOne({
+  "nombre": "Nombre del Empleado",
+  "apellido": "Apellido del Empleado",
+  "direccion": "Dirección del Empleado",
+  "puesto": "Puesto del Empleado",
+  "salario": 50000,
+  "sede_id": ObjectId("ID de la Sede Principal")
+})
+
+db.proveedores.insertOne({
+  "nombre": "Proveedor A",
+  "direccion": "Dirección de Proveedor A",
+  "telefono": "+9876543210",
+  "correo": "proveedor@example.com",
+  "sede_id": ObjectId("ID de la Sede Principal")
+})
+
+db.clientes.insertOne({
+  "nombre": "Juan",
+  "apellido": "Pérez",
+  "direccion": "123 Calle Principal",
+  "telefono": "+9876543210",
+  "correo": "juan@example.com"
+})
+
+db.productos.insertOne({
+  "nombre": "Producto 1",
+  "descripcion": "Descripción del Producto 1",
+  "precio": 50,
+  "proveedor_id": ObjectId("ID del Proveedor A"),
+  "almacen_id": ObjectId("ID del Almacén Principal")
+})
+
+db.compras.insertOne({
+  "fecha": ISODate("2023-10-03T10:00:00Z"),
+  "producto_id": ObjectId("ID del Producto Comprado"),
+  "proveedor_id": ObjectId("ID del Proveedor"),
+  "sede_id": ObjectId("ID de la Sede"),
+  "almacen_id": ObjectId("ID del Almacén"),
+  "cantidad": 10,
+  "precio_unitario": 50
+})
+
+db.ventas.insertOne({
+  "fecha": ISODate("2023-10-03T15:30:00Z"),
+  "producto_id": ObjectId("ID del Producto Vendido"),
+  "cliente_id": ObjectId("ID del Cliente"),
+  "empleado_id": ObjectId("ID del Empleado"),
+  "almacen_id": ObjectId("ID del Almacén"),
+  "cantidad": 5,
+  "precio_unitario": 60
+})
+
+
+db.almacen.insertOne({
+  "sede_id": ObjectId("ID de la Sede Principal"),
+  "productos": [
+    ObjectId("ID del Producto 1"),
+    ObjectId("ID del Producto 2"),
+    ObjectId("ID del Producto 3")
+  ]
+})
+
+
