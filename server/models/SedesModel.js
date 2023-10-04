@@ -38,4 +38,4 @@ const SedeSchema = new mongoose.Schema({
 
 const Sede = mongoose.model('Sede', SedeSchema);
 
-module.exports = { Sede, SedeSchema };
+module.exports = { Sede };

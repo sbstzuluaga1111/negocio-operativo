@@ -4,7 +4,7 @@ function Productos() {
     const [data, setData] = useState([]);
   
     useEffect(() => {
-      fetch("http://localhost:3001/sedes")
+      fetch("http://localhost:3001/productos")
         .then((response) => {
           if (!response.ok) {
             throw new Error("Error al obtener los datos de la API");
@@ -22,21 +22,21 @@ function Productos() {
     return (
       <div className="App">
         <header className="App-header">
-          <h1>Sedes:</h1>
+          <h1>Productos:</h1>
+          <button>Agregar</button>
           <ul>
-            {data.map((sede) => (
-              <li key={sede._id}>
-                <strong>Nombre:</strong> {sede.nombre} <br />
-                <strong>Dirección:</strong> {sede.direccion} <br />
-                <strong>Ciudad:</strong> {sede.ciudad} <br />
-                <strong>País:</strong> {sede.pais} <br />
-                <strong>Teléfono:</strong> {sede.telefono}
+            {data.map((producto) => (
+              <li key={producto._id}>
+                <strong>Nombre:</strong> {producto.nombre} <br />
+                <strong>Descripción:</strong> {producto.descripcion} <br />
+                <strong>Precio:</strong> {producto.precio} <br />
+                <strong>Proveedor ID:</strong> {producto.proveedor_id} <br />
               </li>
             ))}
           </ul>
         </header>
       </div>
     );
-  }
+}
 
 export default Productos;

@@ -1,5 +1,5 @@
 import React, { Fragment } from 'react';
-import { BrowserRouter as Router, Route, Link, Routes } from 'react-router-dom'; // Importa 'Routes' en lugar de 'Switch'
+import { BrowserRouter as Router, Route, Link, Routes } from 'react-router-dom';
 import './App.css';
 
 import Almacen from './Components/Almacen';
