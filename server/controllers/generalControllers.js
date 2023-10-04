@@ -180,10 +180,12 @@ exports.getEmpleados = async (req, res) => {
 
 exports.agregarEmpleado = async (req, res) => {
   try {
-    const { nombre, puesto, salario } = req.body;
+    const { nombre, apellido, direccion, puesto, salario } = req.body; // Agregar apellido y direccion al destructurar
 
     const nuevoEmpleado = new Empleado({
       nombre,
+      apellido, // Incluir el apellido
+      direccion, // Incluir la dirección
       puesto,
       salario,
     });
@@ -196,6 +198,7 @@ exports.agregarEmpleado = async (req, res) => {
     res.status(500).json({ error: 'Error al agregar el empleado' });
   }
 };
+
 
 exports.eliminarEmpleado = async (req, res) => {
   try {
@@ -216,7 +219,15 @@ exports.eliminarEmpleado = async (req, res) => {
 exports.editarEmpleado = async (req, res) => {
   try {
     const empleadoId = req.params.id;
-    const datosActualizados = req.body;
+    const { nombre, apellido, direccion, puesto, salario } = req.body; // Agregar apellido y direccion al destructurar
+
+    const datosActualizados = {
+      nombre,
+      apellido, // Incluir el apellido
+      direccion, // Incluir la dirección
+      puesto,
+      salario,
+    };
 
     const empleadoActualizado = await Empleado.findByIdAndUpdate(
       empleadoId,
@@ -234,6 +245,7 @@ exports.editarEmpleado = async (req, res) => {
     res.status(500).json({ error: 'Error al editar el empleado' });
   }
 };
+
 
 ///////////////////////////////////////////////////////////////
 

@@ -1,45 +1,247 @@
 import React, { useState, useEffect } from 'react';
 
 function Compras() {
-    const [data, setData] = useState([]);
-  
-    useEffect(() => {
-      fetch("http://localhost:3001/compras")
-        .then((response) => {
-          if (!response.ok) {
-            throw new Error("Error al obtener los datos de la API");
-          }
-          return response.json();
-        })
-        .then((responseData) => {
-          setData(responseData);
-        })
-        .catch((error) => {
-          console.error(error);
+  const [data, setData] = useState([]);
+  const [nuevaCompra, setNuevaCompra] = useState({
+    fecha: '',
+    producto: 'Producto de ejemplo',
+    proveedor: 'Proveedor de ejemplo',
+    sede: 'Sede de ejemplo',
+    almacen: 'Almacén de ejemplo',
+    cantidad: '',
+    precio_unitario: ''
+  });
+  const [mostrarFormularioAgregar, setMostrarFormularioAgregar] = useState(false);
+  const [compraEditando, setCompraEditando] = useState(null);
+
+  useEffect(() => {
+    fetch("http://localhost:3001/compras")
+      .then((response) => {
+        if (!response.ok) {
+          throw new Error("Error al obtener los datos de la API");
+        }
+        return response.json();
+      })
+      .then((responseData) => {
+        setData(responseData);
+      })
+      .catch((error) => {
+        console.error(error);
+      });
+  }, []);
+
+  const toggleFormulario = () => {
+    setMostrarFormularioAgregar(!mostrarFormularioAgregar);
+  };
+
+  const handleMostrarFormularioEdicion = (compra) => {
+    setCompraEditando(compra);
+    setMostrarFormularioAgregar(true);
+  };
+
+  const handleEditarCompra = (e) => {
+    e.preventDefault();
+    // Realizar una solicitud PUT para editar la compra
+    fetch(`http://localhost:3001/compras/${compraEditando._id}`, {
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(compraEditando),
+    })
+      .then((response) => {
+        if (!response.ok) {
+          throw new Error("Error al editar la compra");
+        }
+        // Actualiza la lista de compras excluyendo la compra editada
+        const nuevasCompras = data.map((compra) =>
+          compra._id === compraEditando._id ? compraEditando : compra
+        );
+        setData(nuevasCompras);
+        // Oculta el formulario de edición
+        setMostrarFormularioAgregar(false);
+        setCompraEditando(null);
+      })
+      .catch((error) => {
+        console.error(error);
+      });
+  };
+
+  const handleEditarInputChange = (e) => {
+    const { name, value } = e.target;
+    setCompraEditando({ ...compraEditando, [name]: value });
+  };
+
+  const handleCancelarEdicion = () => {
+    setMostrarFormularioAgregar(false);
+    setCompraEditando(null);
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+
+    // Realizar una solicitud POST para agregar una nueva compra
+    fetch("http://localhost:3001/compras", {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(nuevaCompra),
+    })
+      .then((response) => {
+        if (!response.ok) {
+          throw new Error("Error al agregar la compra");
+        }
+        return response.json();
+      })
+      .then((compraAgregada) => {
+        // Actualiza la lista de compras con la nueva compra
+        setData([...data, compraAgregada]);
+
+        // Limpia el formulario
+        setNuevaCompra({
+          fecha: '',
+          producto: 'Producto de ejemplo',
+          proveedor: 'Proveedor de ejemplo',
+          sede: 'Sede de ejemplo',
+          almacen: 'Almacén de ejemplo',
+          cantidad: '',
+          precio_unitario: ''
         });
-    }, []);
-  
-    return (
-      <div className="App">
-        <header className="App-header">
-          <h1>Compras:</h1>
-          <button>Agregar</button>
-          <ul>
-            {data.map((compra) => (
-              <li key={compra._id}>
-                <strong>Fecha:</strong> {new Date(compra.fecha).toLocaleString()} <br />
-                <strong>Producto:</strong> {compra.producto_id} <br />
-                <strong>Proveedor:</strong> {compra.proveedor_id} <br />
-                <strong>Sede:</strong> {compra.sede_id} <br />
-                <strong>Almacen:</strong> {compra.almacen_id} <br />
-                <strong>Cantidad:</strong> {compra.cantidad} <br />
-                <strong>Precio Unitario:</strong> {compra.precio_unitario} <br />
-              </li>
-            ))}
-          </ul>
-        </header>
-      </div>
-    );
+
+        // Oculta el formulario después de agregar
+        setMostrarFormularioAgregar(false);
+      })
+      .catch((error) => {
+        console.error(error);
+      });
+  };
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setNuevaCompra({ ...nuevaCompra, [name]: value });
+  };
+
+  const handleEliminarCompra = (compraId) => {
+    // Realizar una solicitud DELETE para eliminar la compra
+    fetch(`http://localhost:3001/compras/${compraId}`, {
+      method: 'DELETE',
+    })
+      .then((response) => {
+        if (!response.ok) {
+          throw Error("Error al eliminar la compra");
+        }
+
+        const nuevasCompras = data.filter((compra) => compra._id !== compraId);
+        setData(nuevasCompras);
+      })
+      .catch((error) => {
+        console.error(error);
+      });
+  };
+
+  return (
+    <div className="App">
+      <header className="App-header">
+        <h1>Compras:</h1>
+        <button onClick={toggleFormulario}>
+          {!mostrarFormularioAgregar ? "Agregar Compra" : "Cancelar"}
+        </button>
+
+        {mostrarFormularioAgregar ? (
+          <form onSubmit={handleSubmit}>
+            <div>
+              <label>Fecha:</label>
+              <input
+                type="text"
+                name="fecha"
+                value={nuevaCompra.fecha}
+                onChange={handleChange}
+                required
+              />
+            </div>
+            <div>
+              <label>Producto:</label>
+              <input
+                type="text"
+                name="producto"
+                value={nuevaCompra.producto}
+                onChange={handleChange}
+                required
+              />
+            </div>
+            <div>
+              <label>Proveedor:</label>
+              <input
+                type="text"
+                name="proveedor"
+                value={nuevaCompra.proveedor}
+                onChange={handleChange}
+                required
+              />
+            </div>
+            <div>
+              <label>Sede:</label>
+              <input
+                type="text"
+                name="sede"
+                value={nuevaCompra.sede}
+                onChange={handleChange}
+                required
+              />
+            </div>
+            <div>
+              <label>Almacén:</label>
+              <input
+                type="text"
+                name="almacen"
+                value={nuevaCompra.almacen}
+                onChange={handleChange}
+                required
+              />
+            </div>
+            <div>
+              <label>Cantidad:</label>
+              <input
+                type="text"
+                name="cantidad"
+                value={nuevaCompra.cantidad}
+                onChange={handleChange}
+                required
+              />
+            </div>
+            <div>
+              <label>Precio Unitario:</label>
+              <input
+                type="text"
+                name="precio_unitario"
+                value={nuevaCompra.precio_unitario}
+                onChange={handleChange}
+                required
+              />
+            </div>
+            <button type="submit">Agregar</button>
+          </form>
+        ) : null}
+
+        <ul>
+          {data.map((compra) => (
+            <li key={compra._id}>
+              <strong>Fecha:</strong> {new Date(compra.fecha).toLocaleString()} <br />
+              <strong>Producto:</strong> {compra.producto} <br />
+              <strong>Proveedor:</strong> {compra.proveedor} <br />
+              <strong>Sede:</strong> {compra.sede} <br />
+              <strong>Almacén:</strong> {compra.almacen} <br />
+              <strong>Cantidad:</strong> {compra.cantidad} <br />
+              <strong>Precio Unitario:</strong> {compra.precio_unitario} <br />
+              <button onClick={() => handleEliminarCompra(compra._id)}>Eliminar</button>
+              <button onClick={() => handleMostrarFormularioEdicion(compra)}>Editar</button>
+            </li>
+          ))}
+        </ul>
+      </header>
+    </div>
+  );
 }
 
 export default Compras;

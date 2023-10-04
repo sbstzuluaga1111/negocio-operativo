@@ -2,43 +2,246 @@ import React, { useState, useEffect } from 'react';
 
 function Ventas() {
     const [data, setData] = useState([]);
-  
+    const [nuevaVenta, setNuevaVenta] = useState({
+        fecha: new Date().toISOString(),
+        producto_id: '',
+        cliente_id: '',
+        empleado_id: '',
+        almacen_id: '',
+        cantidad: '',
+        precio_unitario: '',
+    });
+    const [mostrarFormularioAgregar, setMostrarFormularioAgregar] = useState(false);
+    const [ventaEditando, setVentaEditando] = useState(null);
+
     useEffect(() => {
-      fetch("http://localhost:3001/ventas")
-        .then((response) => {
-          if (!response.ok) {
-            throw new Error("Error al obtener los datos de la API");
-          }
-          return response.json();
-        })
-        .then((responseData) => {
-          setData(responseData);
-        })
-        .catch((error) => {
-          console.error(error);
-        });
+        fetch("http://localhost:3001/ventas")
+            .then((response) => {
+                if (!response.ok) {
+                    throw new Error("Error al obtener los datos de la API");
+                }
+                return response.json();
+            })
+            .then((responseData) => {
+                setData(responseData);
+            })
+            .catch((error) => {
+                console.error(error);
+            });
     }, []);
-  
+
+    const toggleFormulario = () => {
+        setMostrarFormularioAgregar(!mostrarFormularioAgregar);
+    };
+
+    const handleMostrarFormularioEdicion = (venta) => {
+        setVentaEditando(venta);
+        setMostrarFormularioAgregar(true);
+    };
+
+    const handleEditarVenta = (e) => {
+        e.preventDefault();
+
+        // Realizar una solicitud PUT para editar la venta
+        fetch(`http://localhost:3001/ventas/${ventaEditando._id}`, {
+            method: 'PUT',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(ventaEditando),
+        })
+            .then((response) => {
+                if (!response.ok) {
+                    throw new Error("Error al editar la venta");
+                }
+                // Actualiza la lista de ventas excluyendo la venta editada
+                const nuevasVentas = data.map((venta) =>
+                    venta._id === ventaEditando._id ? ventaEditando : venta
+                );
+                setData(nuevasVentas);
+                // Oculta el formulario de edición
+                setMostrarFormularioAgregar(false);
+                setVentaEditando(null);
+            })
+            .catch((error) => {
+                console.error(error);
+            });
+    };
+
+    const handleEditarInputChange = (e) => {
+        const { name, value } = e.target;
+        setVentaEditando({ ...ventaEditando, [name]: value });
+    };
+
+    const handleCancelarEdicion = () => {
+        setMostrarFormularioAgregar(false);
+        setVentaEditando(null);
+    };
+
+    const handleSubmit = (e) => {
+        e.preventDefault();
+
+        // Realizar una solicitud POST para agregar una nueva venta
+        fetch("http://localhost:3001/ventas", {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(nuevaVenta),
+        })
+            .then((response) => {
+                if (!response.ok) {
+                    throw new Error("Error al agregar la venta");
+                }
+                return response.json();
+            })
+            .then((ventaAgregada) => {
+                // Actualiza la lista de ventas con la nueva venta
+                setData([...data, ventaAgregada]);
+
+                // Limpia el formulario
+                setNuevaVenta({
+                    fecha: new Date().toISOString(),
+                    producto_id: '',
+                    cliente_id: '',
+                    empleado_id: '',
+                    almacen_id: '',
+                    cantidad: '',
+                    precio_unitario: '',
+                });
+
+                // Oculta el formulario después de agregar
+                setMostrarFormularioAgregar(false);
+            })
+            .catch((error) => {
+                console.error(error);
+            });
+    };
+
+    const handleChange = (e) => {
+        const { name, value } = e.target;
+        setNuevaVenta({ ...nuevaVenta, [name]: value });
+    };
+
+    const handleEliminarVenta = (ventaId) => {
+        // Realizar una solicitud DELETE para eliminar la venta
+        fetch(`http://localhost:3001/ventas/${ventaId}`, {
+            method: 'DELETE',
+        })
+            .then((response) => {
+                if (!response.ok) {
+                    throw Error("Error al eliminar la venta");
+                }
+
+                const nuevasVentas = data.filter((venta) => venta._id !== ventaId);
+                setData(nuevasVentas);
+            })
+            .catch((error) => {
+                console.error(error);
+            });
+    };
+
     return (
-      <div className="App">
-        <header className="App-header">
-          <h1>Ventas:</h1>
-          <button>Agregar</button>
-          <ul>
-            {data.map((venta) => (
-              <li key={venta._id}>
-                <strong>Fecha:</strong> {new Date(venta.fecha).toLocaleString()} <br />
-                <strong>Producto:</strong> {venta.producto_id} <br />
-                <strong>Cliente:</strong> {venta.cliente_id} <br />
-                <strong>Empleado:</strong> {venta.empleado_id} <br />
-                <strong>Almacén:</strong> {venta.almacen_id} <br />
-                <strong>Cantidad:</strong> {venta.cantidad} <br />
-                <strong>Precio Unitario:</strong> {venta.precio_unitario} <br />
-              </li>
-            ))}
-          </ul>
-        </header>
-      </div>
+        <div className="App">
+            <header className="App-header">
+                <h1>Ventas:</h1>
+                <button onClick={toggleFormulario}>
+                    {!mostrarFormularioAgregar ? "Agregar Venta" : "Cancelar"}
+                </button>
+
+                {mostrarFormularioAgregar ? (
+                    <form onSubmit={handleSubmit}>
+                        <div>
+                            <label>Fecha:</label>
+                            <input
+                                type="datetime-local"
+                                name="fecha"
+                                value={nuevaVenta.fecha}
+                                onChange={handleChange}
+                                required
+                            />
+                        </div>
+                        <div>
+                            <label>Producto ID:</label>
+                            <input
+                                type="text"
+                                name="producto_id"
+                                value={nuevaVenta.producto_id}
+                                onChange={handleChange}
+                                required
+                            />
+                        </div>
+                        <div>
+                            <label>Cliente ID:</label>
+                            <input
+                                type="text"
+                                name="cliente_id"
+                                value={nuevaVenta.cliente_id}
+                                onChange={handleChange}
+                                required
+                            />
+                        </div>
+                        <div>
+                            <label>Empleado ID:</label>
+                            <input
+                                type="text"
+                                name="empleado_id"
+                                value={nuevaVenta.empleado_id}
+                                onChange={handleChange}
+                                required
+                            />
+                        </div>
+                        <div>
+                            <label>Almacén ID:</label>
+                            <input
+                                type="text"
+                                name="almacen_id"
+                                value={nuevaVenta.almacen_id}
+                                onChange={handleChange}
+                                required
+                            />
+                        </div>
+                        <div>
+                            <label>Cantidad:</label>
+                            <input
+                                type="number"
+                                name="cantidad"
+                                value={nuevaVenta.cantidad}
+                                onChange={handleChange}
+                                required
+                            />
+                        </div>
+                        <div>
+                            <label>Precio Unitario:</label>
+                            <input
+                                type="number"
+                                name="precio_unitario"
+                                value={nuevaVenta.precio_unitario}
+                                onChange={handleChange}
+                                required
+                            />
+                        </div>
+                        <button type="submit">Agregar</button>
+                    </form>
+                ) : null}
+
+                <ul>
+                    {data.map((venta) => (
+                        <li key={venta._id}>
+                            <strong>Fecha:</strong> {new Date(venta.fecha).toLocaleString()} <br />
+                            <strong>Producto ID:</strong> {venta.producto_id} <br />
+                            <strong>Cliente ID:</strong> {venta.cliente_id} <br />
+                            <strong>Empleado ID:</strong> {venta.empleado_id} <br />
+                            <strong>Almacén ID:</strong> {venta.almacen_id} <br />
+                            <strong>Cantidad:</strong> {venta.cantidad} <br />
+                            <strong>Precio Unitario:</strong> {venta.precio_unitario} <br />
+                            <button onClick={() => handleEliminarVenta(venta._id)}>Eliminar</button>
+                            <button onClick={() => handleMostrarFormularioEdicion(venta)}>Editar</button>
+                        </li>
+                    ))}
+                </ul>
+            </header>
+        </div>
     );
 }
 
