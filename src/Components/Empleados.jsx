@@ -4,8 +4,8 @@ function Empleados() {
   const [data, setData] = useState([]);
   const [nuevoEmpleado, setNuevoEmpleado] = useState({
     nombre: '',
-    apellido: '', // Campo de texto simple
-    direccion: '', // Campo de texto simple
+    apellido: '',
+    direccion: '',
     puesto: '',
     salario: '',
   });
@@ -39,7 +39,6 @@ function Empleados() {
 
   const handleEditarEmpleado = (e) => {
     e.preventDefault();
-    // Realizar una solicitud PUT para editar el empleado
     fetch(`http://localhost:3001/empleados/${empleadoEditando._id}`, {
       method: 'PUT',
       headers: {
@@ -51,12 +50,10 @@ function Empleados() {
         if (!response.ok) {
           throw new Error("Error al editar el empleado");
         }
-        // Actualiza la lista de empleados excluyendo el empleado editado
         const nuevosEmpleados = data.map((empleado) =>
           empleado._id === empleadoEditando._id ? empleadoEditando : empleado
         );
         setData(nuevosEmpleados);
-        // Oculta el formulario de edición
         setMostrarFormularioAgregar(false);
         setEmpleadoEditando(null);
       })
@@ -78,16 +75,14 @@ function Empleados() {
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    // Crear un nuevo objeto con los campos requeridos
     const nuevoEmpleadoConCamposRequeridos = {
       nombre: nuevoEmpleado.nombre,
-      apellido: nuevoEmpleado.apellido, // Campo de texto simple
-      direccion: nuevoEmpleado.direccion, // Campo de texto simple
+      apellido: nuevoEmpleado.apellido, 
+      direccion: nuevoEmpleado.direccion,
       puesto: nuevoEmpleado.puesto,
       salario: nuevoEmpleado.salario,
     };
 
-    // Realizar una solicitud POST para agregar un nuevo empleado
     fetch("http://localhost:3001/empleados", {
       method: 'POST',
       headers: {
@@ -102,19 +97,16 @@ function Empleados() {
         return response.json();
       })
       .then((empleadoAgregado) => {
-        // Actualiza la lista de empleados con el nuevo empleado
         setData([...data, empleadoAgregado]);
 
-        // Limpia el formulario
         setNuevoEmpleado({
           nombre: '',
-          apellido: '', // Campo de texto simple
-          direccion: '', // Campo de texto simple
+          apellido: '',
+          direccion: '',
           puesto: '',
           salario: '',
         });
 
-        // Oculta el formulario después de agregar
         setMostrarFormularioAgregar(false);
       })
       .catch((error) => {
@@ -128,7 +120,6 @@ function Empleados() {
   };
 
   const handleEliminarEmpleado = (empleadoId) => {
-    // Realizar una solicitud DELETE para eliminar el empleado
     fetch(`http://localhost:3001/empleados/${empleadoId}`, {
       method: 'DELETE',
     })
@@ -170,7 +161,7 @@ function Empleados() {
               <input
                 type="text"
                 name="apellido"
-                value={nuevoEmpleado.apellido} // Campo de texto simple
+                value={nuevoEmpleado.apellido}
                 onChange={handleChange}
                 required
               />
@@ -180,7 +171,7 @@ function Empleados() {
               <input
                 type="text"
                 name="direccion"
-                value={nuevoEmpleado.direccion} // Campo de texto simple
+                value={nuevoEmpleado.direccion}
                 onChange={handleChange}
                 required
               />
@@ -213,8 +204,8 @@ function Empleados() {
           {data.map((empleado) => (
             <li key={empleado._id}>
               <strong>Nombre:</strong> {empleado.nombre} <br />
-              <strong>Apellido:</strong> {empleado.apellido} <br /> {/* Campo de texto simple */}
-              <strong>Dirección:</strong> {empleado.direccion} <br /> {/* Campo de texto simple */}
+              <strong>Apellido:</strong> {empleado.apellido} <br />
+              <strong>Dirección:</strong> {empleado.direccion} <br />
               <strong>Puesto:</strong> {empleado.puesto} <br />
               <strong>Salario:</strong> {empleado.salario} <br />
               <button onClick={() => handleEliminarEmpleado(empleado._id)}>Eliminar</button>

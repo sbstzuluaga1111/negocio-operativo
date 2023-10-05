@@ -180,12 +180,12 @@ exports.getEmpleados = async (req, res) => {
 
 exports.agregarEmpleado = async (req, res) => {
   try {
-    const { nombre, apellido, direccion, puesto, salario } = req.body; // Agregar apellido y direccion al destructurar
+    const { nombre, apellido, direccion, puesto, salario } = req.body;
 
     const nuevoEmpleado = new Empleado({
       nombre,
-      apellido, // Incluir el apellido
-      direccion, // Incluir la dirección
+      apellido,
+      direccion,
       puesto,
       salario,
     });
@@ -219,12 +219,12 @@ exports.eliminarEmpleado = async (req, res) => {
 exports.editarEmpleado = async (req, res) => {
   try {
     const empleadoId = req.params.id;
-    const { nombre, apellido, direccion, puesto, salario } = req.body; // Agregar apellido y direccion al destructurar
+    const { nombre, apellido, direccion, puesto, salario } = req.body;
 
     const datosActualizados = {
       nombre,
-      apellido, // Incluir el apellido
-      direccion, // Incluir la dirección
+      apellido,
+      direccion, 
       puesto,
       salario,
     };

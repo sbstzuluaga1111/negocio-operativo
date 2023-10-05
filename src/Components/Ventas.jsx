@@ -42,7 +42,6 @@ function Ventas() {
     const handleEditarVenta = (e) => {
         e.preventDefault();
 
-        // Realizar una solicitud PUT para editar la venta
         fetch(`http://localhost:3001/ventas/${ventaEditando._id}`, {
             method: 'PUT',
             headers: {
@@ -54,12 +53,12 @@ function Ventas() {
                 if (!response.ok) {
                     throw new Error("Error al editar la venta");
                 }
-                // Actualiza la lista de ventas excluyendo la venta editada
+
                 const nuevasVentas = data.map((venta) =>
                     venta._id === ventaEditando._id ? ventaEditando : venta
                 );
                 setData(nuevasVentas);
-                // Oculta el formulario de edición
+
                 setMostrarFormularioAgregar(false);
                 setVentaEditando(null);
             })
@@ -81,7 +80,6 @@ function Ventas() {
     const handleSubmit = (e) => {
         e.preventDefault();
 
-        // Realizar una solicitud POST para agregar una nueva venta
         fetch("http://localhost:3001/ventas", {
             method: 'POST',
             headers: {
@@ -96,10 +94,8 @@ function Ventas() {
                 return response.json();
             })
             .then((ventaAgregada) => {
-                // Actualiza la lista de ventas con la nueva venta
                 setData([...data, ventaAgregada]);
 
-                // Limpia el formulario
                 setNuevaVenta({
                     fecha: new Date().toISOString(),
                     producto_id: '',
@@ -110,7 +106,6 @@ function Ventas() {
                     precio_unitario: '',
                 });
 
-                // Oculta el formulario después de agregar
                 setMostrarFormularioAgregar(false);
             })
             .catch((error) => {
@@ -124,7 +119,6 @@ function Ventas() {
     };
 
     const handleEliminarVenta = (ventaId) => {
-        // Realizar una solicitud DELETE para eliminar la venta
         fetch(`http://localhost:3001/ventas/${ventaId}`, {
             method: 'DELETE',
         })

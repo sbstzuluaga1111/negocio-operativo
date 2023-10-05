@@ -2,10 +2,8 @@ import React, { useState, useEffect } from 'react';
 
 function Almacenes() {
   const [data, setData] = useState([]);
-  const [mostrarFormularioAgregar, setMostrarFormularioAgregar] = useState(false);
 
   useEffect(() => {
-    // Realizar una solicitud GET para obtener la lista de almacenes
     fetch("http://localhost:3001/almacen")
       .then((response) => {
         if (!response.ok) {
@@ -21,28 +19,7 @@ function Almacenes() {
       });
   }, []);
 
-  const toggleFormulario = () => {
-    setMostrarFormularioAgregar(!mostrarFormularioAgregar);
-  };
-
-  const handleEliminarAlmacen = (almacenId) => {
-    // Realizar una solicitud DELETE para eliminar el almacen
-    fetch(`http://localhost:3001/almacen/${almacenId}`, {
-      method: 'DELETE',
-    })
-      .then((response) => {
-        if (!response.ok) {
-          throw Error("Error al eliminar el almacen");
-        }
-
-        const nuevosAlmacenes = data.filter((almacen) => almacen._id !== almacenId);
-        setData(nuevosAlmacenes);
-      })
-      .catch((error) => {
-        console.error(error);
-      });
-  };
-
+ 
   return (
     <div className="App">
       <header className="App-header">

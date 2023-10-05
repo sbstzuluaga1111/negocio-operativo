@@ -41,7 +41,6 @@ function Compras() {
 
   const handleEditarCompra = (e) => {
     e.preventDefault();
-    // Realizar una solicitud PUT para editar la compra
     fetch(`http://localhost:3001/compras/${compraEditando._id}`, {
       method: 'PUT',
       headers: {
@@ -53,12 +52,10 @@ function Compras() {
         if (!response.ok) {
           throw new Error("Error al editar la compra");
         }
-        // Actualiza la lista de compras excluyendo la compra editada
         const nuevasCompras = data.map((compra) =>
           compra._id === compraEditando._id ? compraEditando : compra
         );
         setData(nuevasCompras);
-        // Oculta el formulario de edición
         setMostrarFormularioAgregar(false);
         setCompraEditando(null);
       })
@@ -80,7 +77,6 @@ function Compras() {
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    // Realizar una solicitud POST para agregar una nueva compra
     fetch("http://localhost:3001/compras", {
       method: 'POST',
       headers: {
@@ -95,10 +91,8 @@ function Compras() {
         return response.json();
       })
       .then((compraAgregada) => {
-        // Actualiza la lista de compras con la nueva compra
         setData([...data, compraAgregada]);
 
-        // Limpia el formulario
         setNuevaCompra({
           fecha: '',
           producto: 'Producto de ejemplo',
@@ -109,7 +103,6 @@ function Compras() {
           precio_unitario: ''
         });
 
-        // Oculta el formulario después de agregar
         setMostrarFormularioAgregar(false);
       })
       .catch((error) => {
@@ -123,7 +116,6 @@ function Compras() {
   };
 
   const handleEliminarCompra = (compraId) => {
-    // Realizar una solicitud DELETE para eliminar la compra
     fetch(`http://localhost:3001/compras/${compraId}`, {
       method: 'DELETE',
     })

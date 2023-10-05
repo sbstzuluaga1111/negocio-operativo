@@ -39,7 +39,6 @@ function Clientes() {
 
   const handleEditarCliente = (e) => {
     e.preventDefault();
-    // Realizar una solicitud PUT para editar el cliente
     fetch(`http://localhost:3001/clientes/${clienteEditando._id}`, {
       method: 'PUT',
       headers: {
@@ -51,12 +50,10 @@ function Clientes() {
         if (!response.ok) {
           throw new Error("Error al editar el cliente");
         }
-        // Actualiza la lista de clientes excluyendo el cliente editado
         const nuevosClientes = data.map((cliente) =>
           cliente._id === clienteEditando._id ? clienteEditando : cliente
         );
         setData(nuevosClientes);
-        // Oculta el formulario de edición
         setMostrarFormularioAgregar(false);
         setClienteEditando(null);
       })
@@ -72,7 +69,6 @@ function Clientes() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    // Realizar una solicitud POST para agregar un nuevo cliente
     fetch("http://localhost:3001/clientes", {
       method: 'POST',
       headers: {
@@ -87,10 +83,8 @@ function Clientes() {
         return response.json();
       })
       .then((clienteAgregado) => {
-        // Actualiza la lista de clientes con el nuevo cliente
         setData([...data, clienteAgregado]);
 
-        // Limpia el formulario
         setNuevoCliente({
           nombre: '',
           direccion: '',
@@ -99,7 +93,6 @@ function Clientes() {
           telefono: ''
         });
 
-        // Oculta el formulario después de agregar
         setMostrarFormularioAgregar(false);
       })
       .catch((error) => {
@@ -113,7 +106,6 @@ function Clientes() {
   };
 
   const handleEliminarCliente = (clienteId) => {
-    // Realizar una solicitud DELETE para eliminar el cliente
     fetch(`http://localhost:3001/clientes/${clienteId}`, {
       method: 'DELETE',
     })

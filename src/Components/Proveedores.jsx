@@ -39,7 +39,6 @@ function Proveedores() {
     const handleEditarProveedor = (e) => {
         e.preventDefault();
 
-        // Realizar una solicitud PUT para editar el proveedor
         fetch(`http://localhost:3001/proveedores/${proveedorEditando._id}`, {
             method: 'PUT',
             headers: {
@@ -51,12 +50,10 @@ function Proveedores() {
                 if (!response.ok) {
                     throw new Error("Error al editar el proveedor");
                 }
-                // Actualiza la lista de proveedores excluyendo el proveedor editado
                 const nuevosProveedores = data.map((proveedor) =>
                     proveedor._id === proveedorEditando._id ? proveedorEditando : proveedor
                 );
                 setData(nuevosProveedores);
-                // Oculta el formulario de edición
                 setMostrarFormularioAgregar(false);
                 setProveedorEditando(null);
             })
@@ -78,7 +75,6 @@ function Proveedores() {
     const handleSubmit = (e) => {
         e.preventDefault();
 
-        // Realizar una solicitud POST para agregar un nuevo proveedor
         fetch("http://localhost:3001/proveedores", {
             method: 'POST',
             headers: {
@@ -93,10 +89,9 @@ function Proveedores() {
                 return response.json();
             })
             .then((proveedorAgregado) => {
-                // Actualiza la lista de proveedores con el nuevo proveedor
+
                 setData([...data, proveedorAgregado]);
 
-                // Limpia el formulario
                 setNuevoProveedor({
                     nombre: '',
                     direccion: '',
@@ -104,7 +99,6 @@ function Proveedores() {
                     correo: '',
                 });
 
-                // Oculta el formulario después de agregar
                 setMostrarFormularioAgregar(false);
             })
             .catch((error) => {
@@ -118,7 +112,6 @@ function Proveedores() {
     };
 
     const handleEliminarProveedor = (proveedorId) => {
-        // Realizar una solicitud DELETE para eliminar el proveedor
         fetch(`http://localhost:3001/proveedores/${proveedorId}`, {
             method: 'DELETE',
         })

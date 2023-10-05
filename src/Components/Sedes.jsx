@@ -45,7 +45,6 @@ function Sedes() {
   
   const handleEditarSede = (e) => {
     e.preventDefault();
-    // Realizar una solicitud PUT para editar la sede
     fetch(`http://localhost:3001/sedes/${sedeEditando._id}`, {
       method: 'PUT',
       headers: {
@@ -57,12 +56,10 @@ function Sedes() {
         if (!response.ok) {
           throw new Error("Error al editar la sede");
         }
-        // Actualiza la lista de sedes excluyendo la sede editada
         const nuevasSedes = data.map((sede) =>
           sede._id === sedeEditando._id ? sedeEditando : sede
         );
         setData(nuevasSedes);
-        // Oculta el formulario de edición
         setMostrarFormularioAgregar(false);
         setSedeEditando(null);
       })
@@ -84,7 +81,6 @@ function Sedes() {
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    // Realizar una solicitud POST para agregar una nueva sede
     fetch("http://localhost:3001/sedes", {
       method: 'POST',
       headers: {
@@ -99,10 +95,8 @@ function Sedes() {
         return response.json();
       })
       .then((sedeAgregada) => {
-        // Actualiza la lista de sedes con la nueva sede
         setData([...data, sedeAgregada]);
 
-        // Limpia el formulario
         setNuevaSede({
           nombre: '',
           direccion: '',
@@ -117,7 +111,6 @@ function Sedes() {
           empleados: []
         });
 
-        // Oculta el formulario después de agregar
         setMostrarFormularioAgregar(false);
       })
       .catch((error) => {
@@ -131,7 +124,6 @@ function Sedes() {
   };
 
   const handleEliminarSede = (sedeId) => {
-    // Realizar una solicitud DELETE para eliminar la sede
     fetch(`http://localhost:3001/sedes/${sedeId}`, {
       method: 'DELETE',
     })

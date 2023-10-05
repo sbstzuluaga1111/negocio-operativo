@@ -38,10 +38,8 @@ function Productos() {
     const handleEditarProducto = (e) => {
         e.preventDefault();
 
-        // Eliminamos el campo "Proveedor ID" del objeto a enviar
         const { proveedor_id, ...datosActualizados } = productoEditando;
 
-        // Realizar una solicitud PUT para editar el producto
         fetch(`http://localhost:3001/productos/${productoEditando._id}`, {
             method: 'PUT',
             headers: {
@@ -53,12 +51,10 @@ function Productos() {
                 if (!response.ok) {
                     throw new Error("Error al editar el producto");
                 }
-                // Actualiza la lista de productos excluyendo el producto editado
                 const nuevosProductos = data.map((producto) =>
                     producto._id === productoEditando._id ? productoEditando : producto
                 );
                 setData(nuevosProductos);
-                // Oculta el formulario de edición
                 setMostrarFormularioAgregar(false);
                 setProductoEditando(null);
             })
@@ -80,10 +76,8 @@ function Productos() {
     const handleSubmit = (e) => {
         e.preventDefault();
 
-        // Eliminamos el campo "Proveedor ID" del objeto a enviar
         const { proveedor_id, ...nuevoProductoSinProveedor } = nuevoProducto;
 
-        // Realizar una solicitud POST para agregar un nuevo producto
         fetch("http://localhost:3001/productos", {
             method: 'POST',
             headers: {
@@ -98,17 +92,14 @@ function Productos() {
                 return response.json();
             })
             .then((productoAgregado) => {
-                // Actualiza la lista de productos con el nuevo producto
                 setData([...data, productoAgregado]);
 
-                // Limpia el formulario
                 setNuevoProducto({
                     nombre: '',
                     descripcion: '',
                     precio: '',
                 });
 
-                // Oculta el formulario después de agregar
                 setMostrarFormularioAgregar(false);
             })
             .catch((error) => {
@@ -122,7 +113,6 @@ function Productos() {
     };
 
     const handleEliminarProducto = (productoId) => {
-        // Realizar una solicitud DELETE para eliminar el producto
         fetch(`http://localhost:3001/productos/${productoId}`, {
             method: 'DELETE',
         })
