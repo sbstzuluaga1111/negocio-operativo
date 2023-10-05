@@ -227,7 +227,7 @@ a {
 }
 
 a:hover {
-  color: #ff5733;
+  color: #000000;
 }
 
 /* 
@@ -351,3 +351,8 @@ body {
   justify-content: center;
 }
 
+img{
+  border-radius: 50%;
+  width: 440px;
+  height: 440px;
+}
