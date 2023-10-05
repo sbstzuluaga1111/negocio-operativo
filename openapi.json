@@ -1,0 +1,1729 @@
+{
+  "openapi": "3.0.3",
+  "info": {
+    "title": "Documentación de API - negocio-operativo",
+    "description": "La API que has desarrollado es una plataforma de gestión empresarial que permite administrar y gestionar diferentes aspectos de un negocio, desde sedes y proveedores hasta productos, empleados, clientes, compras y ventas. Esta API proporciona una serie de rutas y operaciones que facilitan la interacción con la base de datos de la empresa y permiten realizar las siguientes acciones.\n\nSedes Puedes realizar operaciones CRUD (Crear, Leer, Actualizar y Eliminar) en las sedes de tu empresa. Esto incluye la obtención de la lista de sedes, la adición de nuevas sedes, la edición de información de sede existente y la eliminación de sedes.\n\nProveedores- Gestionar proveedores es fundamental para tu negocio. Puedes realizar operaciones como obtener la lista de proveedores, agregar nuevos proveedores, actualizar la información de proveedores y eliminar proveedores.\n\nEmpleados- Esta API te permite administrar tu fuerza laboral. Puedes obtener la lista de empleados, agregar nuevos empleados, editar la información de empleados y eliminar empleados de tu empresa.\n\nProductos- Gestionar productos es esencial para el inventario de tu negocio. Puedes realizar operaciones para obtener la lista de productos, agregar nuevos productos, actualizar información de productos y eliminar productos.\n\nAlmacenes- Administra los almacenes de tu empresa. Puedes obtener la lista de almacenes, agregar nuevos almacenes, actualizar información de almacenes y eliminar almacenes.\n\nClientes- Mantén un registro de tus clientes. Puedes realizar operaciones para obtener la lista de clientes, agregar nuevos clientes, actualizar información de clientes y eliminar clientes.\n\nCompras- Realiza un seguimiento de las compras de productos para tu empresa. Puedes obtener la lista de compras, agregar nuevas compras, actualizar información de compras y eliminar compras registradas.\n\nVentas- Registra las ventas de tus productos. Puedes realizar operaciones para obtener la lista de ventas, agregar nuevas ventas, actualizar información de ventas y eliminar registros de ventas.\n\nEsta API proporciona una interfaz eficiente para administrar todos estos aspectos críticos de tu negocio, lo que facilita la gestión y seguimiento de la información empresarial de manera efectiva. Puedes utilizar esta API para crear aplicaciones y sistemas que ayuden en la toma de decisiones, la administración de inventarios, el seguimiento de ventas y mucho más.",
+    "version": "1.0.0"
+  },
+  "servers": [
+    {
+      "url": "http://localhost:3001"
+    }
+  ],
+  "tags": [
+    {
+      "name": "Sedes",
+      "description": "Endpoints relacionados con sedes"
+    },
+    {
+      "name": "Proveedores",
+      "description": "Endpoints relacionados con proveedores"
+    },
+    {
+      "name": "Empleados",
+      "description": "Endpoints relacionados con empleados"
+    },
+    {
+      "name": "Productos",
+      "description": "Endpoints relacionados con productos"
+    },
+    {
+      "name": "Almacen",
+      "description": "Endpoints relacionados con almacenes"
+    },
+    {
+      "name": "Clientes",
+      "description": "Endpoints relacionados con clientes"
+    },
+    {
+      "name": "Compras",
+      "description": "Endpoints relacionados con compras"
+    },
+    {
+      "name": "Ventas",
+      "description": "Endpoints relacionados con ventas"
+    }
+  ],
+  "paths": {
+    "/sedes": {
+      "get": {
+        "tags": [
+          "Sedes"
+        ],
+        "summary": "Obtener todas las sedes",
+        "responses": {
+          "200": {
+            "description": "Lista de sedes obtenida con éxito",
+            "content": {
+              "application/json": {
+                "example": [
+                  {
+                    "_id": "651c8b2db3be049e3ad4ed8c",
+                    "nombre": "Sede Principal",
+                    "...": null
+                  }
+                ]
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "Sedes"
+        ],
+        "summary": "Agregar una nueva sede",
+        "requestBody": {
+          "description": "Datos de la sede que se va a agregar.",
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "nombre": {
+                    "type": "string",
+                    "description": "Nombre de la sede."
+                  },
+                  "direccion": {
+                    "type": "string",
+                    "description": "Dirección de la sede."
+                  },
+                  "ciudad": {
+                    "type": "string",
+                    "description": "Ciudad de la sede."
+                  },
+                  "pais": {
+                    "type": "string",
+                    "description": "País de la sede."
+                  },
+                  "telefono": {
+                    "type": "string",
+                    "description": "Número de teléfono de la sede."
+                  },
+                  "almacenNombre": {
+                    "type": "string",
+                    "description": "Nombre del almacén asociado."
+                  },
+                  "almacenUbicacion": {
+                    "type": "string",
+                    "description": "Ubicación del almacén asociado."
+                  },
+                  "proveedores": {
+                    "type": "array",
+                    "description": "Lista de proveedores asociados.",
+                    "items": {
+                      "type": "object",
+                      "properties": {
+                        "nombre": {
+                          "type": "string",
+                          "description": "Nombre del proveedor."
+                        }
+                      }
+                    }
+                  },
+                  "empleados": {
+                    "type": "array",
+                    "description": "Lista de empleados asociados.",
+                    "items": {
+                      "type": "object",
+                      "properties": {
+                        "nombre": {
+                          "type": "string",
+                          "description": "Nombre del empleado."
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Sede agregada con éxito",
+            "content": {
+              "application/json": {
+                "example": {
+                  "_id": "651c8b2db3be049e3ad4ed8c",
+                  "nombre": "Sede Principal",
+                  "...": null
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/sedes/{id}": {
+      "delete": {
+        "tags": [
+          "Sedes"
+        ],
+        "summary": "Eliminar una sede por ID",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "description": "ID de la sede que se va a eliminar."
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Sede eliminada con éxito",
+            "content": {
+              "application/json": {
+                "example": {
+                  "_id": "651c8b2db3be049e3ad4ed8c",
+                  "nombre": "Sede Principal",
+                  "...": null
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Sede no encontrada",
+            "content": {
+              "application/json": {
+                "example": {
+                  "error": "Sede no encontrada"
+                }
+              }
+            }
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "Sedes"
+        ],
+        "summary": "Editar una sede por ID",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "description": "ID de la sede que se va a editar."
+          }
+        ],
+        "requestBody": {
+          "description": "Datos actualizados de la sede.",
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "nombre": {
+                    "type": "string",
+                    "description": "Nuevo nombre de la sede."
+                  },
+                  "direccion": {
+                    "type": "string",
+                    "description": "Nueva dirección de la sede."
+                  },
+                  "ciudad": {
+                    "type": "string",
+                    "description": "Nueva ciudad de la sede."
+                  },
+                  "pais": {
+                    "type": "string",
+                    "description": "Nuevo país de la sede."
+                  },
+                  "telefono": {
+                    "type": "string",
+                    "description": "Nuevo número de teléfono de la sede."
+                  },
+                  "almacenNombre": {
+                    "type": "string",
+                    "description": "Nuevo nombre del almacén asociado."
+                  },
+                  "almacenUbicacion": {
+                    "type": "string",
+                    "description": "Nueva ubicación del almacén asociado."
+                  },
+                  "proveedores": {
+                    "type": "array",
+                    "description": "Nueva lista de proveedores asociados.",
+                    "items": {
+                      "type": "object",
+                      "properties": {
+                        "nombre": {
+                          "type": "string",
+                          "description": "Nombre del proveedor."
+                        }
+                      }
+                    }
+                  },
+                  "empleados": {
+                    "type": "array",
+                    "description": "Nueva lista de empleados asociados.",
+                    "items": {
+                      "type": "object",
+                      "properties": {
+                        "nombre": {
+                          "type": "string",
+                          "description": "Nombre del empleado."
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Sede editada con éxito",
+            "content": {
+              "application/json": {
+                "example": {
+                  "_id": "651c8b2db3be049e3ad4ed8c",
+                  "nombre": "Sede Principal",
+                  "...": null
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/proveedores": {
+      "get": {
+        "tags": [
+          "Proveedores"
+        ],
+        "summary": "Obtener todos los proveedores",
+        "responses": {
+          "200": {
+            "description": "Lista de proveedores obtenida con éxito",
+            "content": {
+              "application/json": {
+                "example": [
+                  {
+                    "_id": "651deab9860dbb37a7401713",
+                    "nombre": "Proveedor X",
+                    "...": null
+                  }
+                ]
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "Proveedores"
+        ],
+        "summary": "Agregar un nuevo proveedor",
+        "requestBody": {
+          "description": "Datos del proveedor que se va a agregar.",
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "nombre": {
+                    "type": "string",
+                    "description": "Nombre del proveedor."
+                  },
+                  "direccion": {
+                    "type": "string",
+                    "description": "Dirección del proveedor."
+                  },
+                  "telefono": {
+                    "type": "string",
+                    "description": "Número de teléfono del proveedor."
+                  },
+                  "correo": {
+                    "type": "string",
+                    "description": "Correo electrónico del proveedor."
+                  },
+                  "sede_id": {
+                    "type": "string",
+                    "description": "ID de la sede a la que está asociado el proveedor."
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Proveedor agregado con éxito",
+            "content": {
+              "application/json": {
+                "example": {
+                  "_id": "651deab9860dbb37a7401713",
+                  "nombre": "Proveedor X",
+                  "...": null
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/proveedores/{id}": {
+      "delete": {
+        "tags": [
+          "Proveedores"
+        ],
+        "summary": "Eliminar un proveedor por ID",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "description": "ID del proveedor que se va a eliminar."
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Proveedor eliminado con éxito",
+            "content": {
+              "application/json": {
+                "example": {
+                  "_id": "651deab9860dbb37a7401713",
+                  "nombre": "Proveedor X",
+                  "...": null
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Proveedor no encontrado",
+            "content": {
+              "application/json": {
+                "example": {
+                  "error": "Proveedor no encontrado"
+                }
+              }
+            }
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "Proveedores"
+        ],
+        "summary": "Editar un proveedor por ID",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "description": "ID del proveedor que se va a editar."
+          }
+        ],
+        "requestBody": {
+          "description": "Datos actualizados del proveedor.",
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "nombre": {
+                    "type": "string",
+                    "description": "Nuevo nombre del proveedor."
+                  },
+                  "direccion": {
+                    "type": "string",
+                    "description": "Nueva dirección del proveedor."
+                  },
+                  "telefono": {
+                    "type": "string",
+                    "description": "Nuevo número de teléfono del proveedor."
+                  },
+                  "correo": {
+                    "type": "string",
+                    "description": "Nuevo correo electrónico del proveedor."
+                  },
+                  "sede_id": {
+                    "type": "string",
+                    "description": "Nuevo ID de la sede a la que está asociado el proveedor."
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Proveedor editado con éxito",
+            "content": {
+              "application/json": {
+                "example": {
+                  "_id": "651deab9860dbb37a7401713",
+                  "nombre": "Proveedor X",
+                  "...": null
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Proveedor no encontrado",
+            "content": {
+              "application/json": {
+                "example": {
+                  "error": "Proveedor no encontrado"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/empleados": {
+      "get": {
+        "tags": [
+          "Empleados"
+        ],
+        "summary": "Obtener todos los empleados",
+        "responses": {
+          "200": {
+            "description": "Lista de empleados obtenida con éxito",
+            "content": {
+              "application/json": {
+                "example": [
+                  {
+                    "_id": "651c8b2db3be049e3ad4ed8c",
+                    "nombre": "Empleado 1",
+                    "...": null
+                  }
+                ]
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "Empleados"
+        ],
+        "summary": "Agregar un nuevo empleado",
+        "requestBody": {
+          "description": "Datos del empleado que se va a agregar.",
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "nombre": {
+                    "type": "string",
+                    "description": "Nombre del empleado."
+                  },
+                  "apellido": {
+                    "type": "string",
+                    "description": "Apellido del empleado."
+                  },
+                  "direccion": {
+                    "type": "string",
+                    "description": "Dirección del empleado."
+                  },
+                  "puesto": {
+                    "type": "string",
+                    "description": "Puesto del empleado."
+                  },
+                  "salario": {
+                    "type": "number",
+                    "description": "Salario del empleado."
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Empleado agregado con éxito",
+            "content": {
+              "application/json": {
+                "example": {
+                  "_id": "651c8b2db3be049e3ad4ed8c",
+                  "nombre": "Empleado 1",
+                  "...": null
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/empleados/{id}": {
+      "delete": {
+        "tags": [
+          "Empleados"
+        ],
+        "summary": "Eliminar un empleado por ID",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "description": "ID del empleado que se va a eliminar."
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Empleado eliminado con éxito",
+            "content": {
+              "application/json": {
+                "example": {
+                  "_id": "651c8b2db3be049e3ad4ed8c",
+                  "nombre": "Empleado 1",
+                  "...": null
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Empleado no encontrado",
+            "content": {
+              "application/json": {
+                "example": {
+                  "error": "Empleado no encontrado"
+                }
+              }
+            }
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "Empleados"
+        ],
+        "summary": "Editar un empleado por ID",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "description": "ID del empleado que se va a editar."
+          }
+        ],
+        "requestBody": {
+          "description": "Datos actualizados del empleado.",
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "nombre": {
+                    "type": "string",
+                    "description": "Nuevo nombre del empleado."
+                  },
+                  "apellido": {
+                    "type": "string",
+                    "description": "Nuevo apellido del empleado."
+                  },
+                  "direccion": {
+                    "type": "string",
+                    "description": "Nueva dirección del empleado."
+                  },
+                  "puesto": {
+                    "type": "string",
+                    "description": "Nuevo puesto del empleado."
+                  },
+                  "salario": {
+                    "type": "number",
+                    "description": "Nuevo salario del empleado."
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Empleado editado con éxito",
+            "content": {
+              "application/json": {
+                "example": {
+                  "_id": "651c8b2db3be049e3ad4ed8c",
+                  "nombre": "Empleado 1",
+                  "...": null
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Empleado no encontrado",
+            "content": {
+              "application/json": {
+                "example": {
+                  "error": "Empleado no encontrado"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/productos": {
+      "get": {
+        "tags": [
+          "Productos"
+        ],
+        "summary": "Obtener todos los productos",
+        "responses": {
+          "200": {
+            "description": "Lista de productos obtenida con éxito",
+            "content": {
+              "application/json": {
+                "example": [
+                  {
+                    "_id": "651c8b2db3be049e3ad4ed8c",
+                    "nombre": "Producto 1",
+                    "...": null
+                  }
+                ]
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "Productos"
+        ],
+        "summary": "Agregar un nuevo producto",
+        "requestBody": {
+          "description": "Datos del producto que se va a agregar.",
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "nombre": {
+                    "type": "string",
+                    "description": "Nombre del producto."
+                  },
+                  "descripcion": {
+                    "type": "string",
+                    "description": "Descripción del producto."
+                  },
+                  "precio": {
+                    "type": "number",
+                    "description": "Precio del producto."
+                  },
+                  "proveedor_id": {
+                    "type": "string",
+                    "description": "ID del proveedor asociado al producto."
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Producto agregado con éxito",
+            "content": {
+              "application/json": {
+                "example": {
+                  "_id": "651c8b2db3be049e3ad4ed8c",
+                  "nombre": "Producto 1",
+                  "...": null
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/productos/{id}": {
+      "delete": {
+        "tags": [
+          "Productos"
+        ],
+        "summary": "Eliminar un producto por ID",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "description": "ID del producto que se va a eliminar."
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Producto eliminado con éxito",
+            "content": {
+              "application/json": {
+                "example": {
+                  "_id": "651c8b2db3be049e3ad4ed8c",
+                  "nombre": "Producto 1",
+                  "...": null
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Producto no encontrado",
+            "content": {
+              "application/json": {
+                "example": {
+                  "error": "Producto no encontrado"
+                }
+              }
+            }
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "Productos"
+        ],
+        "summary": "Editar un producto por ID",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "description": "ID del producto que se va a editar."
+          }
+        ],
+        "requestBody": {
+          "description": "Datos actualizados del producto.",
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "nombre": {
+                    "type": "string",
+                    "description": "Nuevo nombre del producto."
+                  },
+                  "descripcion": {
+                    "type": "string",
+                    "description": "Nueva descripción del producto."
+                  },
+                  "precio": {
+                    "type": "number",
+                    "description": "Nuevo precio del producto."
+                  },
+                  "proveedor_id": {
+                    "type": "string",
+                    "description": "Nuevo ID del proveedor asociado al producto."
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Producto editado con éxito",
+            "content": {
+              "application/json": {
+                "example": {
+                  "_id": "651c8b2db3be049e3ad4ed8c",
+                  "nombre": "Producto 1",
+                  "...": null
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Producto no encontrado",
+            "content": {
+              "application/json": {
+                "example": {
+                  "error": "Producto no encontrado"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/almacen": {
+      "get": {
+        "tags": [
+          "Almacen"
+        ],
+        "summary": "Obtener todos los almacenes",
+        "responses": {
+          "200": {
+            "description": "Lista de almacenes obtenida con éxito",
+            "content": {
+              "application/json": {
+                "example": [
+                  {
+                    "_id": "651c8b2db3be049e3ad4ed8c",
+                    "sede_id": "651c8b2db3be049e3ad4ed8c",
+                    "productos": [
+                      "producto1",
+                      "producto2"
+                    ]
+                  }
+                ]
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "Almacen"
+        ],
+        "summary": "Agregar un nuevo almacén",
+        "requestBody": {
+          "description": "Datos del almacén que se va a agregar.",
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "sede_id": {
+                    "type": "string",
+                    "description": "ID de la sede a la que está asociado el almacén."
+                  },
+                  "productos": {
+                    "type": "array",
+                    "description": "Lista de productos en el almacén.",
+                    "items": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Almacén agregado con éxito",
+            "content": {
+              "application/json": {
+                "example": {
+                  "_id": "651c8b2db3be049e3ad4ed8c",
+                  "sede_id": "651c8b2db3be049e3ad4ed8c",
+                  "productos": [
+                    "producto1",
+                    "producto2"
+                  ]
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/almacen/{id}": {
+      "delete": {
+        "tags": [
+          "Almacen"
+        ],
+        "summary": "Eliminar un almacén por ID",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "description": "ID del almacén que se va a eliminar."
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Almacén eliminado con éxito",
+            "content": {
+              "application/json": {
+                "example": {
+                  "_id": "651c8b2db3be049e3ad4ed8c",
+                  "sede_id": "651c8b2db3be049e3ad4ed8c",
+                  "productos": [
+                    "producto1",
+                    "producto2"
+                  ]
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Almacén no encontrado",
+            "content": {
+              "application/json": {
+                "example": {
+                  "error": "Almacén no encontrado"
+                }
+              }
+            }
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "Almacen"
+        ],
+        "summary": "Editar un almacén por ID",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "description": "ID del almacén que se va a editar."
+          }
+        ],
+        "requestBody": {
+          "description": "Datos actualizados del almacén.",
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "sede_id": {
+                    "type": "string",
+                    "description": "Nuevo ID de la sede a la que está asociado el almacén."
+                  },
+                  "productos": {
+                    "type": "array",
+                    "description": "Nueva lista de productos en el almacén.",
+                    "items": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Almacén editado con éxito",
+            "content": {
+              "application/json": {
+                "example": {
+                  "_id": "651c8b2db3be049e3ad4ed8c",
+                  "sede_id": "651c8b2db3be049e3ad4ed8c",
+                  "productos": [
+                    "producto1",
+                    "producto2"
+                  ]
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Almacén no encontrado",
+            "content": {
+              "application/json": {
+                "example": {
+                  "error": "Almacén no encontrado"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/clientes": {
+      "get": {
+        "tags": [
+          "Clientes"
+        ],
+        "summary": "Obtener todos los clientes",
+        "responses": {
+          "200": {
+            "description": "Lista de clientes obtenida con éxito",
+            "content": {
+              "application/json": {
+                "example": [
+                  {
+                    "_id": "651c8b2db3be049e3ad4ed8c",
+                    "nombre": "Cliente X",
+                    "direccion": "Dirección X",
+                    "ciudad": "Ciudad X",
+                    "pais": "País X",
+                    "telefono": "Teléfono X"
+                  }
+                ]
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "Clientes"
+        ],
+        "summary": "Agregar un nuevo cliente",
+        "requestBody": {
+          "description": "Datos del cliente que se va a agregar.",
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "nombre": {
+                    "type": "string",
+                    "description": "Nombre del cliente."
+                  },
+                  "direccion": {
+                    "type": "string",
+                    "description": "Dirección del cliente."
+                  },
+                  "ciudad": {
+                    "type": "string",
+                    "description": "Ciudad del cliente."
+                  },
+                  "pais": {
+                    "type": "string",
+                    "description": "País del cliente."
+                  },
+                  "telefono": {
+                    "type": "string",
+                    "description": "Número de teléfono del cliente."
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Cliente agregado con éxito",
+            "content": {
+              "application/json": {
+                "example": {
+                  "_id": "651c8b2db3be049e3ad4ed8c",
+                  "nombre": "Cliente X",
+                  "direccion": "Dirección X",
+                  "ciudad": "Ciudad X",
+                  "pais": "País X",
+                  "telefono": "Teléfono X"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/clientes/{id}": {
+      "delete": {
+        "tags": [
+          "Clientes"
+        ],
+        "summary": "Eliminar un cliente por ID",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "description": "ID del cliente que se va a eliminar."
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Cliente eliminado con éxito",
+            "content": {
+              "application/json": {
+                "example": {
+                  "_id": "651c8b2db3be049e3ad4ed8c",
+                  "nombre": "Cliente X",
+                  "direccion": "Dirección X",
+                  "ciudad": "Ciudad X",
+                  "pais": "País X",
+                  "telefono": "Teléfono X"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Cliente no encontrado",
+            "content": {
+              "application/json": {
+                "example": {
+                  "error": "Cliente no encontrado"
+                }
+              }
+            }
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "Clientes"
+        ],
+        "summary": "Editar un cliente por ID",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "description": "ID del cliente que se va a editar."
+          }
+        ],
+        "requestBody": {
+          "description": "Datos actualizados del cliente.",
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "nombre": {
+                    "type": "string",
+                    "description": "Nuevo nombre del cliente."
+                  },
+                  "direccion": {
+                    "type": "string",
+                    "description": "Nueva dirección del cliente."
+                  },
+                  "ciudad": {
+                    "type": "string",
+                    "description": "Nueva ciudad del cliente."
+                  },
+                  "pais": {
+                    "type": "string",
+                    "description": "Nuevo país del cliente."
+                  },
+                  "telefono": {
+                    "type": "string",
+                    "description": "Nuevo número de teléfono del cliente."
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Cliente editado con éxito",
+            "content": {
+              "application/json": {
+                "example": {
+                  "_id": "651c8b2db3be049e3ad4ed8c",
+                  "nombre": "Cliente X",
+                  "direccion": "Dirección X",
+                  "ciudad": "Ciudad X",
+                  "pais": "País X",
+                  "telefono": "Teléfono X"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Cliente no encontrado",
+            "content": {
+              "application/json": {
+                "example": {
+                  "error": "Cliente no encontrado"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/compras": {
+      "get": {
+        "tags": [
+          "Compras"
+        ],
+        "summary": "Obtener todas las compras",
+        "responses": {
+          "200": {
+            "description": "Lista de compras obtenida con éxito",
+            "content": {
+              "application/json": {
+                "example": [
+                  {
+                    "_id": "651c8b2db3be049e3ad4ed8c",
+                    "fecha": "2023-10-03",
+                    "producto_id": "651c8b2db3be049e3ad4ed8c",
+                    "proveedor_id": "651c8b2db3be049e3ad4ed8c",
+                    "sede_id": "651c8b2db3be049e3ad4ed8c",
+                    "almacen_id": "651c8b2db3be049e3ad4ed8c",
+                    "cantidad": 10,
+                    "precio_unitario": 50
+                  }
+                ]
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "Compras"
+        ],
+        "summary": "Agregar una nueva compra",
+        "requestBody": {
+          "description": "Datos de la compra que se va a agregar.",
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "fecha": {
+                    "type": "string",
+                    "description": "Fecha de la compra (YYYY-MM-DD)."
+                  },
+                  "producto_id": {
+                    "type": "string",
+                    "description": "ID del producto comprado."
+                  },
+                  "proveedor_id": {
+                    "type": "string",
+                    "description": "ID del proveedor."
+                  },
+                  "sede_id": {
+                    "type": "string",
+                    "description": "ID de la sede."
+                  },
+                  "almacen_id": {
+                    "type": "string",
+                    "description": "ID del almacén."
+                  },
+                  "cantidad": {
+                    "type": "integer",
+                    "description": "Cantidad de productos comprados."
+                  },
+                  "precio_unitario": {
+                    "type": "number",
+                    "description": "Precio unitario de cada producto."
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Compra agregada con éxito",
+            "content": {
+              "application/json": {
+                "example": {
+                  "_id": "651c8b2db3be049e3ad4ed8c",
+                  "fecha": "2023-10-03",
+                  "producto_id": "651c8b2db3be049e3ad4ed8c",
+                  "proveedor_id": "651c8b2db3be049e3ad4ed8c",
+                  "sede_id": "651c8b2db3be049e3ad4ed8c",
+                  "almacen_id": "651c8b2db3be049e3ad4ed8c",
+                  "cantidad": 10,
+                  "precio_unitario": 50
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/compras/{id}": {
+      "delete": {
+        "tags": [
+          "Compras"
+        ],
+        "summary": "Eliminar una compra por ID",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "description": "ID de la compra que se va a eliminar."
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Compra eliminada con éxito",
+            "content": {
+              "application/json": {
+                "example": {
+                  "_id": "651c8b2db3be049e3ad4ed8c",
+                  "fecha": "2023-10-03",
+                  "producto_id": "651c8b2db3be049e3ad4ed8c",
+                  "proveedor_id": "651c8b2db3be049e3ad4ed8c",
+                  "sede_id": "651c8b2db3be049e3ad4ed8c",
+                  "almacen_id": "651c8b2db3be049e3ad4ed8c",
+                  "cantidad": 10,
+                  "precio_unitario": 50
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Compra no encontrada",
+            "content": {
+              "application/json": {
+                "example": {
+                  "error": "Compra no encontrada"
+                }
+              }
+            }
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "Compras"
+        ],
+        "summary": "Editar una compra por ID",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "description": "ID de la compra que se va a editar."
+          }
+        ],
+        "requestBody": {
+          "description": "Datos actualizados de la compra.",
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "fecha": {
+                    "type": "string",
+                    "description": "Nueva fecha de la compra (YYYY-MM-DD)."
+                  },
+                  "producto_id": {
+                    "type": "string",
+                    "description": "Nuevo ID del producto comprado."
+                  },
+                  "proveedor_id": {
+                    "type": "string",
+                    "description": "Nuevo ID del proveedor."
+                  },
+                  "sede_id": {
+                    "type": "string",
+                    "description": "Nuevo ID de la sede."
+                  },
+                  "almacen_id": {
+                    "type": "string",
+                    "description": "Nuevo ID del almacén."
+                  },
+                  "cantidad": {
+                    "type": "integer",
+                    "description": "Nueva cantidad de productos comprados."
+                  },
+                  "precio_unitario": {
+                    "type": "number",
+                    "description": "Nuevo precio unitario de cada producto."
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Compra editada con éxito",
+            "content": {
+              "application/json": {
+                "example": {
+                  "_id": "651c8b2db3be049e3ad4ed8c",
+                  "fecha": "2023-10-03",
+                  "producto_id": "651c8b2db3be049e3ad4ed8c",
+                  "proveedor_id": "651c8b2db3be049e3ad4ed8c",
+                  "sede_id": "651c8b2db3be049e3ad4ed8c",
+                  "almacen_id": "651c8b2db3be049e3ad4ed8c",
+                  "cantidad": 10,
+                  "precio_unitario": 50
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Compra no encontrada",
+            "content": {
+              "application/json": {
+                "example": {
+                  "error": "Compra no encontrada"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/ventas": {
+      "get": {
+        "tags": [
+          "Ventas"
+        ],
+        "summary": "Obtener todas las ventas",
+        "responses": {
+          "200": {
+            "description": "Lista de ventas obtenida con éxito",
+            "content": {
+              "application/json": {
+                "example": [
+                  {
+                    "_id": "651c8b2db3be049e3ad4ed8c",
+                    "fecha": "2023-10-03",
+                    "producto_id": "651c8b2db3be049e3ad4ed8c",
+                    "cliente_id": "651c8b2db3be049e3ad4ed8c",
+                    "empleado_id": "651c8b2db3be049e3ad4ed8c",
+                    "almacen_id": "651c8b2db3be049e3ad4ed8c",
+                    "cantidad": 10,
+                    "precio_unitario": 50
+                  }
+                ]
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "Ventas"
+        ],
+        "summary": "Agregar una nueva venta",
+        "requestBody": {
+          "description": "Datos de la venta que se va a agregar.",
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "fecha": {
+                    "type": "string",
+                    "description": "Fecha de la venta (YYYY-MM-DD)."
+                  },
+                  "producto_id": {
+                    "type": "string",
+                    "description": "ID del producto vendido."
+                  },
+                  "cliente_id": {
+                    "type": "string",
+                    "description": "ID del cliente que realizó la compra."
+                  },
+                  "empleado_id": {
+                    "type": "string",
+                    "description": "ID del empleado que gestionó la venta."
+                  },
+                  "almacen_id": {
+                    "type": "string",
+                    "description": "ID del almacén desde donde se realizó la venta."
+                  },
+                  "cantidad": {
+                    "type": "integer",
+                    "description": "Cantidad de productos vendidos."
+                  },
+                  "precio_unitario": {
+                    "type": "number",
+                    "description": "Precio unitario de cada producto."
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Venta agregada con éxito",
+            "content": {
+              "application/json": {
+                "example": {
+                  "_id": "651c8b2db3be049e3ad4ed8c",
+                  "fecha": "2023-10-03",
+                  "producto_id": "651c8b2db3be049e3ad4ed8c",
+                  "cliente_id": "651c8b2db3be049e3ad4ed8c",
+                  "empleado_id": "651c8b2db3be049e3ad4ed8c",
+                  "almacen_id": "651c8b2db3be049e3ad4ed8c",
+                  "cantidad": 10,
+                  "precio_unitario": 50
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/ventas/{id}": {
+      "delete": {
+        "tags": [
+          "Ventas"
+        ],
+        "summary": "Eliminar una venta por ID",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "description": "ID de la venta que se va a eliminar."
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Venta eliminada con éxito",
+            "content": {
+              "application/json": {
+                "example": {
+                  "_id": "651c8b2db3be049e3ad4ed8c",
+                  "fecha": "2023-10-03",
+                  "producto_id": "651c8b2db3be049e3ad4ed8c",
+                  "cliente_id": "651c8b2db3be049e3ad4ed8c",
+                  "empleado_id": "651c8b2db3be049e3ad4ed8c",
+                  "almacen_id": "651c8b2db3be049e3ad4ed8c",
+                  "cantidad": 10,
+                  "precio_unitario": 50
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Venta no encontrada",
+            "content": {
+              "application/json": {
+                "example": {
+                  "error": "Venta no encontrada"
+                }
+              }
+            }
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "Ventas"
+        ],
+        "summary": "Editar una venta por ID",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "description": "ID de la venta que se va a editar."
+          }
+        ],
+        "requestBody": {
+          "description": "Datos actualizados de la venta.",
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "fecha": {
+                    "type": "string",
+                    "description": "Nueva fecha de la venta (YYYY-MM-DD)."
+                  },
+                  "producto_id": {
+                    "type": "string",
+                    "description": "Nuevo ID del producto vendido."
+                  },
+                  "cliente_id": {
+                    "type": "string",
+                    "description": "Nuevo ID del cliente que realizó la compra."
+                  },
+                  "empleado_id": {
+                    "type": "string",
+                    "description": "Nuevo ID del empleado que gestionó la venta."
+                  },
+                  "almacen_id": {
+                    "type": "string",
+                    "description": "Nuevo ID del almacén desde donde se realizó la venta."
+                  },
+                  "cantidad": {
+                    "type": "integer",
+                    "description": "Nueva cantidad de productos vendidos."
+                  },
+                  "precio_unitario": {
+                    "type": "number",
+                    "description": "Nuevo precio unitario de cada producto."
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Venta editada con éxito",
+            "content": {
+              "application/json": {
+                "example": {
+                  "_id": "651c8b2db3be049e3ad4ed8c",
+                  "fecha": "2023-10-03",
+                  "producto_id": "651c8b2db3be049e3ad4ed8c",
+                  "cliente_id": "651c8b2db3be049e3ad4ed8c",
+                  "empleado_id": "651c8b2db3be049e3ad4ed8c",
+                  "almacen_id": "651c8b2db3be049e3ad4ed8c",
+                  "cantidad": 10,
+                  "precio_unitario": 50
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Venta no encontrada",
+            "content": {
+              "application/json": {
+                "example": {
+                  "error": "Venta no encontrada"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
