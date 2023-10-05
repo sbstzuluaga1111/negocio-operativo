@@ -18,7 +18,29 @@ function App() {
         <div className="App">
           <header className="App-header">
             <Link to='/'>
-              <a><h1>Administracion (Sedes)</h1></a>
+            
+<div><p class="title">Negocio-Operativo</p>
+<div class="wrapper">
+      
+      <div class="clip-text clip-text_one">JINTOS</div>
+  <div class="clip-text clip-text_fifteen clip-text--no-textzone">JINTOS</div>
+      <div class="clip-text clip-text_twelve clip-text--cover">JINTOS</div>
+  <div class="clip-text clip-text_tree clip-text--no-textzone">JINTOS</div>
+      <div class="clip-text clip-text_two">JINTOS</div>
+      <div class="clip-text clip-text_fourteen clip-text--cover">JINTOS</div>
+      <div class="clip-text clip-text_tree">JINTOS</div>
+      <div class="clip-text clip-text_eleven clip-text--cover">JINTOS</div>
+      <div class="clip-text clip-text_four">JINTOS</div>
+      <div class="clip-text clip-text_five">JINTOS</div>
+      <div class="clip-text clip-text_six">JINTOS</div>
+      <div class="clip-text clip-text_seven">JINTOS</div>
+      <div class="clip-text clip-text_eight">JINTOS</div>
+      <div class="clip-text clip-text_nine">JINTOS</div>
+      <div class="clip-text clip-text_ten">JINTOS</div>
+      <div class="clip-text clip-text_thirteen clip-text--cover">JINTOS</div>
+  </div>
+</div>
+
             </Link>
 
             <div className="App">

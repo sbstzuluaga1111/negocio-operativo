@@ -139,13 +139,13 @@ function Empleados() {
   return (
     <div className="App">
       <header className="App-header">
-        <h1>Empleados:</h1>
+        <h1 className="fadeInUp">Empleados:</h1>
         <button onClick={toggleFormulario}>
           {!mostrarFormularioAgregar ? "Agregar Empleado" : "Cancelar"}
         </button>
 
         {mostrarFormularioAgregar ? (
-          <form onSubmit={handleSubmit}>
+          <form className="formulario-agregar mostrar" onSubmit={handleSubmit}>
             <div>
               <label>Nombre:</label>
               <input
@@ -203,13 +203,15 @@ function Empleados() {
         <ul>
           {data.map((empleado) => (
             <li key={empleado._id}>
+              <div className="venta-details">
               <strong>Nombre:</strong> {empleado.nombre} <br />
               <strong>Apellido:</strong> {empleado.apellido} <br />
               <strong>Dirección:</strong> {empleado.direccion} <br />
               <strong>Puesto:</strong> {empleado.puesto} <br />
               <strong>Salario:</strong> {empleado.salario} <br />
-              <button onClick={() => handleEliminarEmpleado(empleado._id)}>Eliminar</button>
-              <button onClick={() => handleMostrarFormularioEdicion(empleado)}>Editar</button>
+              <button className="eliminar-button" onClick={() => handleEliminarEmpleado(empleado._id)}>Eliminar</button>
+              <button className="editar-button" onClick={() => handleMostrarFormularioEdicion(empleado)}>Editar</button>
+              </div>
             </li>
           ))}
         </ul>

@@ -142,84 +142,88 @@ function Sedes() {
 
   return (
     <div className="App">
-      <header className="App-header">
-        <h1>Sedes:</h1>
-        <button onClick={toggleFormulario}>
-          {!mostrarFormularioAgregar ? "Agregar Sede" : "Cancelar"}
-        </button>
-
-        {mostrarFormularioAgregar ? (
-          <form onSubmit={handleSubmit}>
-            <div>
-              <label>Nombre:</label>
-              <input
-                type="text"
-                name="nombre"
-                value={nuevaSede.nombre}
-                onChange={handleChange}
-                required
-              />
-            </div>
-            <div>
-              <label>Dirección:</label>
-              <input
-                type="text"
-                name="direccion"
-                value={nuevaSede.direccion}
-                onChange={handleChange}
-                required
-              />
-            </div>
-            <div>
-              <label>Ciudad:</label>
-              <input
-                type="text"
-                name="ciudad"
-                value={nuevaSede.ciudad}
-                onChange={handleChange}
-                required
-              />
-            </div>
-            <div>
-              <label>País:</label>
-              <input
-                type="text"
-                name="pais"
-                value={nuevaSede.pais}
-                onChange={handleChange}
-                required
-              />
-            </div>
-            <div>
-              <label>Teléfono:</label>
-              <input
-                type="text"
-                name="telefono"
-                value={nuevaSede.telefono}
-                onChange={handleChange}
-                required
-              />
-            </div>
-            <button type="submit">Agregar</button>
-          </form>
-        ) : null}
+    <header className="App-header">
+      <h1 className="fadeInUp">Sedes:</h1>
+      <button onClick={toggleFormulario}>
+        {!mostrarFormularioAgregar ? "Agregar Sede" : "Cancelar"}
+      </button>
   
-        <ul>
-          {data.map((sede) => (
-            <li key={sede._id}>
-              <strong>Nombre:</strong> {sede.nombre} <br />
-              <strong>Dirección:</strong> {sede.direccion} <br />
-              <strong>Ciudad:</strong> {sede.ciudad} <br />
-              <strong>País:</strong> {sede.pais} <br />
-              <strong>Teléfono:</strong> {sede.telefono}
-              <br />
-              <button onClick={() => handleEliminarSede(sede._id)}>Eliminar</button>
-              <button onClick={() => handleMostrarFormularioEdicion(sede)}>Editar</button>
-            </li>
-          ))}
-        </ul>
-      </header>
+      {mostrarFormularioAgregar ? (
+  <form onSubmit={handleSubmit} className="formulario-agregar mostrar">
+    <div>
+      <label>Nombre:</label>
+      <input
+        type="text"
+        name="nombre"
+        value={nuevaSede.nombre}
+        onChange={handleChange}
+        required
+      />
     </div>
+    <div>
+      <label>Dirección:</label>
+      <input
+        type="text"
+        name="direccion"
+        value={nuevaSede.direccion}
+        onChange={handleChange}
+        required
+      />
+    </div>
+    <div>
+      <label>Ciudad:</label>
+      <input
+        type="text"
+        name="ciudad"
+        value={nuevaSede.ciudad}
+        onChange={handleChange}
+        required
+      />
+    </div>
+    <div>
+      <label>País:</label>
+      <input
+        type="text"
+        name="pais"
+        value={nuevaSede.pais}
+        onChange={handleChange}
+        required
+      />
+    </div>
+    <div>
+      <label>Teléfono:</label>
+      <input
+        type="text"
+        name="telefono"
+        value={nuevaSede.telefono}
+        onChange={handleChange}
+        required
+      />
+    </div>
+    <button type="submit">Agregar</button>
+  </form>
+) : null}
+
+  
+      <ul>
+        {data.map((sede) => (
+          <li  key={sede._id}>
+            <div className="venta-details">
+            <strong>Nombre:</strong> {sede.nombre} <br />
+            <strong>Dirección:</strong> {sede.direccion} <br />
+            <strong>Ciudad:</strong> {sede.ciudad} <br />
+            <strong>País:</strong> {sede.pais} <br />
+            <strong>Teléfono:</strong> {sede.telefono}
+            <br />
+            <button className="eliminar-button" onClick={() => handleEliminarSede(sede._id)}>Eliminar</button>
+            <button className="editar-button" onClick={() => handleMostrarFormularioEdicion(sede)}>Editar</button>
+            </div>
+          </li>
+        ))}
+      </ul>
+    </header>
+  </div>
+  
   );
 }
 

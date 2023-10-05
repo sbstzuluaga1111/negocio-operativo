@@ -131,13 +131,13 @@ function Proveedores() {
     return (
         <div className="App">
             <header className="App-header">
-                <h1>Proveedores:</h1>
-                <button onClick={toggleFormulario}>
+                <h1 className="fadeInUp">Proveedores:</h1>
+                <button onClick={toggleFormulario} >
                     {!mostrarFormularioAgregar ? "Agregar Proveedor" : "Cancelar"}
                 </button>
 
                 {mostrarFormularioAgregar ? (
-                    <form onSubmit={handleSubmit}>
+                    <form onSubmit={handleSubmit} className="formulario-agregar mostrar">
                         <div>
                             <label>Nombre:</label>
                             <input
@@ -185,12 +185,14 @@ function Proveedores() {
                 <ul>
                     {data.map((proveedor) => (
                         <li key={proveedor._id}>
+                            <div className="venta-details">
                             <strong>Nombre:</strong> {proveedor.nombre} <br />
                             <strong>Dirección:</strong> {proveedor.direccion} <br />
                             <strong>Teléfono:</strong> {proveedor.telefono} <br />
                             <strong>Correo:</strong> {proveedor.correo} <br />
-                            <button onClick={() => handleEliminarProveedor(proveedor._id)}>Eliminar</button>
-                            <button onClick={() => handleMostrarFormularioEdicion(proveedor)}>Editar</button>
+                            <button className="eliminar-button" onClick={() => handleEliminarProveedor(proveedor._id)}>Eliminar</button>
+                            <button className="editar-button" onClick={() => handleMostrarFormularioEdicion(proveedor)}>Editar</button>
+                            </div>
                         </li>
                     ))}
                 </ul>

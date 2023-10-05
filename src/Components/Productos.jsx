@@ -132,13 +132,13 @@ function Productos() {
     return (
         <div className="App">
             <header className="App-header">
-                <h1>Productos:</h1>
+                <h1 className="fadeInUp">Productos:</h1>
                 <button onClick={toggleFormulario}>
                     {!mostrarFormularioAgregar ? "Agregar Producto" : "Cancelar"}
                 </button>
 
                 {mostrarFormularioAgregar ? (
-                    <form onSubmit={handleSubmit}>
+                    <form onSubmit={handleSubmit} className="formulario-agregar mostrar">
                         <div>
                             <label>Nombre:</label>
                             <input
@@ -176,11 +176,13 @@ function Productos() {
                 <ul>
                     {data.map((producto) => (
                         <li key={producto._id}>
+                            <div className="venta-details">
                             <strong>Nombre:</strong> {producto.nombre} <br />
                             <strong>Descripción:</strong> {producto.descripcion} <br />
                             <strong>Precio:</strong> {producto.precio} <br />
-                            <button onClick={() => handleEliminarProducto(producto._id)}>Eliminar</button>
-                            <button onClick={() => handleMostrarFormularioEdicion(producto)}>Editar</button>
+                            <button className="eliminar-button" onClick={() => handleEliminarProducto(producto._id)}>Eliminar</button>
+                            <button className="editar-button" onClick={() => handleMostrarFormularioEdicion(producto)}>Editar</button>
+                            </div>
                         </li>
                     ))}
                 </ul>

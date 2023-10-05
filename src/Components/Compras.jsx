@@ -135,13 +135,13 @@ function Compras() {
   return (
     <div className="App">
       <header className="App-header">
-        <h1>Compras:</h1>
+        <h1 className="fadeInUp">Compras:</h1>
         <button onClick={toggleFormulario}>
           {!mostrarFormularioAgregar ? "Agregar Compra" : "Cancelar"}
         </button>
 
         {mostrarFormularioAgregar ? (
-          <form onSubmit={handleSubmit}>
+          <form onSubmit={handleSubmit} className="formulario-agregar mostrar">
             <div>
               <label>Fecha:</label>
               <input
@@ -219,6 +219,7 @@ function Compras() {
         <ul>
           {data.map((compra) => (
             <li key={compra._id}>
+              <div className="venta-details">
               <strong>Fecha:</strong> {new Date(compra.fecha).toLocaleString()} <br />
               <strong>Producto:</strong> {compra.producto} <br />
               <strong>Proveedor:</strong> {compra.proveedor} <br />
@@ -226,8 +227,9 @@ function Compras() {
               <strong>Almacén:</strong> {compra.almacen} <br />
               <strong>Cantidad:</strong> {compra.cantidad} <br />
               <strong>Precio Unitario:</strong> {compra.precio_unitario} <br />
-              <button onClick={() => handleEliminarCompra(compra._id)}>Eliminar</button>
-              <button onClick={() => handleMostrarFormularioEdicion(compra)}>Editar</button>
+              <button className="eliminar-button" onClick={() => handleEliminarCompra(compra._id)}>Eliminar</button>
+              <button className="editar-button" onClick={() => handleMostrarFormularioEdicion(compra)}>Editar</button>
+              </div>
             </li>
           ))}
         </ul>

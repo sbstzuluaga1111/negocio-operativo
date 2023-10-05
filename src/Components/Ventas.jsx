@@ -113,6 +113,8 @@ function Ventas() {
             });
     };
 
+    
+
     const handleChange = (e) => {
         const { name, value } = e.target;
         setNuevaVenta({ ...nuevaVenta, [name]: value });
@@ -138,13 +140,13 @@ function Ventas() {
     return (
         <div className="App">
             <header className="App-header">
-                <h1>Ventas:</h1>
+                <h1 className="fadeInUp">Ventas:</h1>
                 <button onClick={toggleFormulario}>
                     {!mostrarFormularioAgregar ? "Agregar Venta" : "Cancelar"}
                 </button>
 
                 {mostrarFormularioAgregar ? (
-                    <form onSubmit={handleSubmit}>
+                    <form onSubmit={handleSubmit} className="formulario-agregar mostrar">
                         <div>
                             <label>Fecha:</label>
                             <input
@@ -222,6 +224,7 @@ function Ventas() {
                 <ul>
                     {data.map((venta) => (
                         <li key={venta._id}>
+                        <div className="venta-details">
                             <strong>Fecha:</strong> {new Date(venta.fecha).toLocaleString()} <br />
                             <strong>Producto ID:</strong> {venta.producto_id} <br />
                             <strong>Cliente ID:</strong> {venta.cliente_id} <br />
@@ -229,8 +232,9 @@ function Ventas() {
                             <strong>Almacén ID:</strong> {venta.almacen_id} <br />
                             <strong>Cantidad:</strong> {venta.cantidad} <br />
                             <strong>Precio Unitario:</strong> {venta.precio_unitario} <br />
-                            <button onClick={() => handleEliminarVenta(venta._id)}>Eliminar</button>
-                            <button onClick={() => handleMostrarFormularioEdicion(venta)}>Editar</button>
+                            <button className="eliminar-button" onClick={() => handleEliminarVenta(venta._id)}>Eliminar</button>
+                            <button className="editar-button" onClick={() => handleMostrarFormularioEdicion(venta)}>Editar</button>
+                        </div>
                         </li>
                     ))}
                 </ul>
