@@ -87,7 +87,7 @@ function App() {
             <footer className="footer">
               <div className="container">
                 <div className="footer-content">
-                  <p>&copy; 2023 Tu Empresa. Todos los derechos reservados.</p>
+                  <p>&copy; 2023 Zuluaga1111. Todos los derechos reservados.</p>
                   <ul className="footer-links">
                     <li><a href="/">Inicio</a></li>
                     <li><a href="https://github.com/sbstzuluaga1111/negocio-operativo-Pre-Filtro-">Proyecto</a></li>
