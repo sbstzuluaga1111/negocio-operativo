@@ -4,10 +4,10 @@ function Compras() {
   const [data, setData] = useState([]);
   const [nuevaCompra, setNuevaCompra] = useState({
     fecha: '',
-    producto: 'Producto de ejemplo',
-    proveedor: 'Proveedor de ejemplo',
-    sede: 'Sede de ejemplo',
-    almacen: 'Almacén de ejemplo',
+    producto: '',
+    proveedor: '',
+    sede: '',
+    almacen: '',
     cantidad: '',
     precio_unitario: ''
   });
@@ -95,10 +95,10 @@ function Compras() {
 
         setNuevaCompra({
           fecha: '',
-          producto: 'Producto de ejemplo',
-          proveedor: 'Proveedor de ejemplo',
-          sede: 'Sede de ejemplo',
-          almacen: 'Almacén de ejemplo',
+          producto: '',
+          proveedor: '',
+          sede: '',
+          almacen: '',
           cantidad: '',
           precio_unitario: ''
         });

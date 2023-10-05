@@ -18,79 +18,60 @@ function App() {
         <div className="App">
           <header className="App-header">
             <Link to='/'>
-            
-<div><p class="title">Negocio-Operativo</p>
-<div class="wrapper">
-      
-      <div class="clip-text clip-text_one">JINTOS</div>
-  <div class="clip-text clip-text_fifteen clip-text--no-textzone">JINTOS</div>
-      <div class="clip-text clip-text_twelve clip-text--cover">JINTOS</div>
-  <div class="clip-text clip-text_tree clip-text--no-textzone">JINTOS</div>
-      <div class="clip-text clip-text_two">JINTOS</div>
-      <div class="clip-text clip-text_fourteen clip-text--cover">JINTOS</div>
-      <div class="clip-text clip-text_tree">JINTOS</div>
-      <div class="clip-text clip-text_eleven clip-text--cover">JINTOS</div>
-      <div class="clip-text clip-text_four">JINTOS</div>
-      <div class="clip-text clip-text_five">JINTOS</div>
-      <div class="clip-text clip-text_six">JINTOS</div>
-      <div class="clip-text clip-text_seven">JINTOS</div>
-      <div class="clip-text clip-text_eight">JINTOS</div>
-      <div class="clip-text clip-text_nine">JINTOS</div>
-      <div class="clip-text clip-text_ten">JINTOS</div>
-      <div class="clip-text clip-text_thirteen clip-text--cover">JINTOS</div>
+              <div>
+                <p className="title">Negocio-Operativo</p>
+                <div className="wrapper">
+                </div>
+              </div>
+            </Link>
+            <div>
+  <div>
+    <ul className="menu-list">
+      <li>
+        <Link to='/Almacen'>
+          <button>Almacen</button>
+        </Link>
+      </li>
+      <li>
+        <Link to='/Clientes'>
+          <button>Clientes</button>
+        </Link>
+      </li>
+      <li>
+        <Link to='/Compras'>
+          <button>Compras</button>
+        </Link>
+      </li>
+      <li>
+        <Link to='/Empleados'>
+          <button>Empleados</button>
+        </Link>
+      </li>
+      <li>
+        <Link to='/Productos'>
+          <button>Productos</button>
+        </Link>
+      </li>
+      <li>
+        <Link to='/Proveedores'>
+          <button>Proveedores</button>
+        </Link>
+      </li>
+      <li>
+        <Link to='/Sedes'>
+          <button>Sedes</button>
+        </Link>
+      </li>
+      <li>
+        <Link to='/Ventas'>
+          <button>Ventas</button>
+        </Link>
+      </li>
+    </ul>
   </div>
 </div>
 
-            </Link>
 
-            <div className="App">
-              <div>
-                <ul>
-                  <li>
-                    <Link to='/Almacen'>
-                      <button>Almacen</button>
-                    </Link>
-                  </li>
-                  <li>
-                    <Link to='/Clientes'>
-                      <button>Clientes</button>
-                    </Link>
-                  </li>
-                  <li>
-                    <Link to='/Compras'>
-                      <button>Compras</button>
-                    </Link>
-                  </li>
-                  <li>
-                    <Link to='/Empleados'>
-                      <button>Empleados</button>
-                    </Link>
-                  </li>
-                  <li>
-                    <Link to='/Productos'>
-                      <button>Productos</button>
-                    </Link>
-                  </li>
-                  <li>
-                    <Link to='/Proveedores'>
-                      <button>Proveedores</button>
-                    </Link>
-                  </li>
-                  <li>
-                    <Link to='/Sedes'>
-                      <button>Sedes</button>
-                    </Link>
-                  </li>
-                  <li>
-                    <Link to='/Ventas'>
-                      <button>Ventas</button>
-                    </Link>
-                  </li>
-                </ul>
-              </div>
-            </div>
-
-           
             <Routes>
               <Route path='/Almacen' element={<Almacen />} />
               <Route path='/Clientes' element={<Clientes />} />
@@ -100,11 +81,25 @@ function App() {
               <Route path='/Proveedores' element={<Proveedores />} />
               <Route path='/Sedes' element={<Sedes />} />
               <Route path='/Ventas' element={<Ventas />} />
-              <Route path='/' element={<div />} />
+              <Route path='/' element={<div className='imagen'><img src='https://www.ceupe.com/images/easyblog_articles/3089/b2ap3_amp_que-es-una-empresa-concepto-definicion.jpg' /></div>} />
             </Routes>
+
+            <footer className="footer">
+              <div className="container">
+                <div className="footer-content">
+                  <p>&copy; 2023 Tu Empresa. Todos los derechos reservados.</p>
+                  <ul className="footer-links">
+                    <li><a href="/">Inicio</a></li>
+                    <li><a href="https://github.com/sbstzuluaga1111/negocio-operativo-Pre-Filtro-">Proyecto</a></li>
+                    <li><a href="https://github.com/sbstzuluaga1111">Contacto</a></li>
+                  </ul>
+                </div>
+              </div>
+            </footer>
+
           </header>
         </div>
-      </Router>
+      </Router>         
     </Fragment>
   );
 }
